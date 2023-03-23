@@ -1,593 +1,265 @@
-#include <stdio.h>
-// #include <conio.h>
-#include <math.h>
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+#include<ctype.h>
 
-print_menu(char head[100], char menu[10][100], int jm, int pil)
+
+#define MAX_STACK_SIZE 5
+
+int stack[MAX_STACK_SIZE];
+int top = -1;
+#define MAX_QUEUE_SIZE 5
+
+int queue[MAX_QUEUE_SIZE];
+int front = -1;
+int rear = -1;
+
+
+
+void panah(int posMenu, int posPanah)
 {
-  printf("\n\n");
-  printf("================\n");
-  printf("%s\n", head);
-  printf("================\n");
-  int i;
-  for (i = 1; i <= jm; i++)
-  {
-    if (pil == i)
-    {
-      printf("==> ");
-    }
-    else
-    {
-      printf("   ");
-    }
-    printf("%d. %s \n", i, menu[i - 1]);
-  }
-  printf("================\n");
+    if(posPanah==posMenu)
+        printf("==>");
+    else printf(" ");
 }
 
-int keliling_bangun_datar()
+int getPilihan()
 {
-  int pil = 1;
-  float a, b, c, x;
-  char menu[5][100] = {"Keliling Persegi", "Keliling Trapesium", "Keliling layang-layang", "keliling Lingkaran", "Kembali Ke Menu Sebelumnya"};
-  int jm = 5;
-  char key;
-  char ex;
-  while (1)
-  {
-    system("cls");
-    print_menu("Keliling Bangun Datar", menu, jm, pil);
-    key = getch();
-    if (key == 72)
+    int pos=1;
+    int keyPressed=0;
+    while(keyPressed!=27)
     {
-      if (pil > 1)
-      {
-        pil--;
-      }
-    }
-    else if (key == 80)
-    {
-      if (pil < 5)
-      {
-        pil++;
-      }
-    }
-    else if (key == 13)
-    {
-      if (pil != 5)
-      {
-        do
+        system("cls");
+
+        printf("==========================\n");
+        printf("Tugas Quiz Stack and Queue\n");
+        printf("==========================\n");
+        panah(1, pos); printf("  1.Stack String\n");
+        panah(2, pos); printf("  2.Queue Integer\n");
+        panah(3, pos); printf("  3.Exit\n");
+        printf("======================\n");
+
+        keyPressed=getch();
+        if(keyPressed==72)pos--;
+        else if(keyPressed==80)pos++;
+        else pos=pos;
+        if(pos>3)pos=3;
+        if(pos<1)pos=1;
+
+        if(keyPressed == (int)'\r')
         {
-          system("cls");
-          if (pil == 1)
-          {
-            printf("Masukan panjang persegi : ");
-            scanf("%f", &a);
-            printf("Masukan lebar persegi : ");
-            scanf("%f", &b);
-            x = (a * 2) + (b * 2);
-            printf("Keliling Persegi adalah = %.2f \n", x);
-          }
-          else if (pil == 2)
-          {
-            printf("Masukan Sisi Atas Trapesium Sama Kaki : ");
-            scanf("%f", &a);
-            printf("Masukan Sisi Bawah Trapesium Sama Kaki : ");
-            scanf("%f", &b);
-            printf("Masukan Sisi Miring Trapesium Sama Kaki : ");
-            scanf("%f", &c);
-            x = a + b + (c * 2);
-            printf("Keliling Trapesium Sama Kaki adalah = %.2f \n", x);
-          }
-          else if (pil == 3)
-          {
-            printf("Masukan panjang Sisi Atas : ");
-            scanf("%f", &a);
-            printf("Masukan Panjang Sisi Bawah : ");
-            scanf("%f", &b);
-            x = 2 * (a + b);
-            printf("Keliling Layang-layang adalah = %.2f \n", x);
-          }
-          else if (pil == 4)
-          {
-            printf("Masukan panjang Diameter : ");
-            scanf("%f", &a);
-            printf("Masukan Panjang Jari Jari : ");
-            scanf("%f", &b);
-            x = 22 / 7 * a;
-            printf("Keliling Lingkaran berdasarkan diameter adalah = %.2f \n", x);
-            x = 2 * 22 / 7 * b;
-            printf("Keliling Lingkaran berdasarkan jari-jari adalah = %.2f \n", x);
-          }
-          printf("Press any key to continue . . .");
-          getch();
-
-          printf("\nIngin mengulang? (y/n) : ");
-          scanf(" %c", &ex);
-        } while (ex == 'y');
-      }
-      else
-      {
-        return 1;
-      }
+            return pos;
+        }
     }
-  }
-  return 1;
 }
 
-int luas_bangun_datar()
-{
-  int pil = 1;
-  float a, b, c, x;
-  char menu[5][100] = {"Luas Persegi", "Luas Trapesium", "Luas layang-layang", "Luas Lingkaran", "Kembali Ke Menu Sebelumnya"};
-  int jm = 5;
-  char key;
-  char ex;
-  while (1)
-  {
-    system("cls");
-    print_menu("Luas Bangun Datar", menu, jm, pil);
-    key = getch();
-    if (key == 72)
-    {
-      if (pil > 1)
-      {
-        pil--;
-      }
-    }
-    else if (key == 80)
-    {
-      if (pil < 5)
-      {
-        pil++;
-      }
-    }
-    else if (key == 13)
-    {
-      if (pil != 5)
-      {
-        do
-        {
-          system("cls");
-          if (pil == 1)
-          {
-            printf("Masukan panjang persegi : ");
-            scanf("%f", &a);
-            printf("Masukan lebar persegi : ");
-            scanf("%f", &b);
-            x = a * b;
-            printf("Luas Persegi adalah = %.2f \n", x);
-          }
-          else if (pil == 2)
-          {
-            printf("Masukan Sisi Atas Trapesium Sama Kaki : ");
-            scanf("%f", &a);
-            printf("Masukan Sisi Bawah Trapesium Sama Kaki : ");
-            scanf("%f", &b);
-            printf("Masukan Sisi Tinggi Trapesium Sama Kaki : ");
-            scanf("%f", &c);
-            x = 0.5 * (a + b) * c;
-            printf("Luas Trapesium Sama Kaki adalah = %.2f \n", x);
-          }
-          else if (pil == 3)
-          {
-            printf("Masukan Diagonal Panjang : ");
-            scanf("%f", &a);
-            printf("Masukan Diagonal Lebar : ");
-            scanf("%f", &b);
-            x = a * b;
-            printf("Luas Layang-layang adalah = %.2f \n", x);
-          }
-          else if (pil == 4)
-          {
-            printf("Masukan panjang Diameter : ");
-            scanf("%f", &a);
-            printf("Masukan Panjang Jari Jari : ");
-            scanf("%f", &b);
-            x = 0.25 * 22 / 7 * a * a;
-            printf("Luas Lingkaran berdasarkan diameter adalah = %.2f \n", x);
-            x = 0.25 * 22 / 7 * (b * 2) * (b * 2);
-            printf("Luas Lingkaran berdasarkan jari-jari adalah = %.2f \n", x);
-          }
-          printf("Press any key to continue . . .");
-          getch();
 
-          printf("\nIngin mengulang? (y/n) : ");
-          scanf(" %c", &ex);
-        } while (ex == 'y');
-      }
-      else
-      {
-        return 1;
-      }
-    }
-  }
-  return 1;
-}
-
-int volume_bangun_ruang()
-{
-  int pil = 1;
-  float a, b, c, d, e, f, x;
-  char menu[5][100] = {"Volume Kubus", "Volume Prisma", "Volume Limas", "Volume Bola", "Kembali Ke Menu Sebelumnya"};
-  int jm = 5;
-  char key;
-  char ex;
-  while (1)
-  {
-    system("cls");
-    print_menu("Volume Bangun Ruang", menu, jm, pil);
-    key = getch();
-    if (key == 72)
-    {
-      if (pil > 1)
-      {
-        pil--;
-      }
-    }
-    else if (key == 80)
-    {
-      if (pil < 5)
-      {
-        pil++;
-      }
-    }
-    else if (key == 13)
-    {
-      if (pil != 5)
-      {
-        do
-        {
-          system("cls");
-          if (pil == 1)
-          {
-            printf("Masukan panjang sisi kubus : ");
-            scanf("%f", &a);
-            x = a * a * a;
-            printf("Volume Kubus adalah = %.2f \n", x);
-          }
-          else if (pil == 2)
-          {
-            printf("Masukan Sisi Persegi : ");
-            scanf("%f", &a);
-            printf("Masukan Lebar Alas Segitiga : ");
-            scanf("%f", &b);
-            printf("Masukan Tinggi Segitiga : ");
-            scanf("%f", &c);
-            printf("Masukan Jari Jari Lingkaran : ");
-            scanf("%f", &d);
-            printf("Masukan Diameter Lingkaran : ");
-            scanf("%f", &e);
-            printf("Masukan Tinggi prisma : ");
-            scanf("%f", &f);
-            x = a * a * f;
-            printf("Volume Prisma Persegi adalah = %.2f \n", x);
-            x = 0.5 * b * c * f;
-            printf("Volume Prisma Segitiga adalah = %.2f \n", x);
-            x = 0.25 * 22 / 7 * (d * 2) * (d * 2) * f;
-            printf("Volume Silinder berdasarkan jari-jari adalah = %.2f \n", x);
-            x = 0.25 * 22 / 7 * e * e * f;
-            printf("Volume Silinder berdasarkan diameter adalah = %.2f \n", x);
-          }
-          else if (pil == 3)
-          {
-            printf("Masukan Sisi Persegi : ");
-            scanf("%f", &a);
-            printf("Masukan Lebar Alas Segitiga : ");
-            scanf("%f", &b);
-            printf("Masukan Tinggi Segitiga : ");
-            scanf("%f", &c);
-            printf("Masukan Jari Jari Lingkaran : ");
-            scanf("%f", &d);
-            printf("Masukan Diameter Lingkaran : ");
-            scanf("%f", &e);
-            printf("Masukan Tinggi prisma : ");
-            scanf("%f", &f);
-            x = a * a * f / 3;
-            printf("Volume Limas Persegi adalah = %.2f \n", x);
-            x = 0.5 * b * c * f / 3;
-            printf("Volume Limas Segitiga adalah = %.2f \n", x);
-            x = 0.25 * 22 / 7 * (d * 2) * (d * 2) * f / 3;
-            printf("Volume Limas Silinder berdasarkan jari-jari adalah = %.2f \n", x);
-            x = 0.25 * 22 / 7 * e * e * f / 3;
-            printf("Volume Limas Silinder berdasarkan diameter adalah = %.2f \n", x);
-          }
-          else if (pil == 4)
-          {
-            printf("Masukan Jari Jari Lingkaran : ");
-            scanf("%f", &a);
-            printf("Masukan Diameter Lingkaran : ");
-            scanf("%f", &b);
-            x = 3.14 * 4 / 3 * pow(a, 3);
-            printf("Volume Bola berdasarkan jari-jari adalah = %.2f \n", x);
-            x = 3.14 * 4 / 3 * pow(b / 2, 3);
-            printf("Volume Bola berdasarkan diameter adalah = %.2f \n", x);
-          }
-          printf("Press any key to continue . . .");
-          getch();
-
-          printf("\nIngin mengulang? (y/n) : ");
-          scanf(" %c", &ex);
-        } while (ex == 'y');
-      }
-      else
-      {
-        return 1;
-      }
-    }
-  }
-  return 1;
-}
-
-int menu_1()
-{
-  int pil = 1;
-  float a, b, x;
-  char menu_1[5][100] = {"Perkalian", "Pembagian", "Penjumlahan", "Pengurangan", "Return Menu Utama"};
-  int jm_1 = 5;
-  char key;
-  char ex;
-  while (1)
-  {
-    system("cls");
-    print_menu("Ping Poro Lan Sudo", menu_1, jm_1, pil);
-    key = getch();
-    if (key == 72)
-    {
-      if (pil > 1)
-      {
-        pil--;
-      }
-    }
-    else if (key == 80)
-    {
-      if (pil < 5)
-      {
-        pil++;
-      }
-    }
-    else if (key == 13)
-    {
-      if (pil != 5)
-      {
-        do
-        {
-          system("cls");
-          printf("Masukan angka pertama : ");
-          scanf("%f", &a);
-          printf("Masukan angka kedua : ");
-          scanf("%f", &b);
-          if (pil == 1)
-          {
-            x = a * b;
-            printf("hasil dari %.2f * %.2f adalah = %.2f \n", a, b, x);
-          }
-          else if (pil == 2)
-          {
-            x = a / b;
-            printf("hasil dari %.2f / %.2f adalah = %.2f \n", a, b, x);
-          }
-          else if (pil == 3)
-          {
-            x = a + b;
-            printf("hasil dari %.2f + %.2f adalah = %.2f \n", a, b, x);
-          }
-          else if (pil == 4)
-          {
-            x = a - b;
-            printf("hasil dari %.2f - %.2f adalah = %.2f \n", a, b, x);
-          }
-          printf("Press any key to continue . . .");
-          getch();
-
-          printf("\nIngin mengulang? (y/n) : ");
-          scanf(" %c", &ex);
-        } while (ex == 'y');
-      }
-      else
-      {
-        return 1;
-      }
-    }
-  }
-  return 1;
-}
-
-int menu_2()
-{
-  int pil = 1;
-  float derajat, radian, x;
-  char menu_2[4][100] = {"Sinus", "Cosinus", "Tangen", "Return Menu Utama"};
-  int jm_2 = 4;
-  char key;
-  char ex;
-  while (1)
-  {
-    system("cls");
-    print_menu("Sunus Cosinus Tangen", menu_2, jm_2, pil);
-    key = getch();
-    if (key == 72)
-    {
-      if (pil > 1)
-      {
-        pil--;
-      }
-    }
-    else if (key == 80)
-    {
-      if (pil < 4)
-      {
-        pil++;
-      }
-    }
-    else if (key == 13)
-    {
-      if (pil != 4)
-      {
-        do
-        {
-          system("cls");
-          if (pil == 1)
-          {
-            printf("Masukan derajat sinus : ");
-            scanf("%f", &derajat);
-            radian = (derajat * M_PI) / 180;
-            x = sin(radian);
-            printf("hasil sinus adalah = %.2f \n", x);
-          }
-          else if (pil == 2)
-          {
-            printf("Masukan derajat cosinus : ");
-            scanf("%f", &derajat);
-            radian = (derajat * M_PI) / 180;
-            x = cos(radian);
-            printf("hasil cosinus adalah = %.2f \n", x);
-          }
-          else if (pil == 3)
-          {
-            printf("Masukan derajat tangen : ");
-            scanf("%f", &derajat);
-            radian = (derajat * M_PI) / 180;
-            x = tan(radian);
-            printf("hasil tangen adalah = %.2f \n", x);
-          }
-          printf("Press any key to continue . . .");
-          getch();
-
-          printf("\nIngin mengulang? (y/n) : ");
-          scanf(" %c", &ex);
-        } while (ex == 'y');
-      }
-      else
-      {
-        return 1;
-      }
-    }
-  }
-  return 1;
-}
-
-int menu_3()
-{
-  int pil = 1;
-  char menu_3[4][100] = {"Hitung Keliling Bangun Datar", "Hitung Luas Bangun Datar", "Hitung Volume Bangun Ruang", "Return Menu Utama"};
-  int jm_3 = 4;
-  char key;
-  char ex;
-  while (1)
-  {
-    system("cls");
-    print_menu("Keliling Luas Volume", menu_3, jm_3, pil);
-    key = getch();
-    if (key == 72)
-    {
-      if (pil > 1)
-      {
-        pil--;
-      }
-    }
-    else if (key == 80)
-    {
-      if (pil < 4)
-      {
-        pil++;
-      }
-    }
-    else if (key == 13)
-    {
-      if (pil == 1)
-      {
-        keliling_bangun_datar();
-      }
-      else if (pil == 2)
-      {
-        luas_bangun_datar();
-      }
-      else if (pil == 3)
-      {
-        volume_bangun_ruang();
-      }
-      else
-      {
-        return 1;
-      }
-    }
-  }
-  return 1;
-}
-
-int akar()
-{
-  float a, x;
-  char ex;
-  do
-  {
-    system("cls");
-    printf("masukan bilangan yang akan diakar : ");
-    scanf("%f", &a);
-    x = sqrt(a);
-    printf("Hasil akar dari %.2f adalah %.2f \n", a, x);
-    printf("Press any key to continue . . .");
-    getch();
-
-    printf("\nIngin mengulang? (y/n) : ");
-    scanf(" %c", &ex);
-  } while (ex == 'y');
-}
 
 int main()
 {
-  system("color F0");
-  int pil = 1;
-  int pil1 = 1;
-  int pil2 = 1;
-  char menu_awal[5][100] = {"PingPoroLanSudo", "SinCosTan", "Hitung Keliling dan Luas", "Hitung Akar Kuadrat", "Exit"};
-  int jm_awal = 5;
-  char key;
-  while (1)
-  {
-    system("cls");
-    print_menu("TUGAS KALKULATOR", menu_awal, jm_awal, pil);
-    key = getch();
-    if (key == 72)
-    {
-      if (pil > 1)
-      {
-        pil--;
-      }
-    }
-    else if (key == 80)
-    {
-      if (pil < 5)
-      {
-        pil++;
-      }
-    }
-    else if (key == 13)
-    {
-      if (pil == 1)
-      {
-        menu_1();
-      }
-      else if (pil == 2)
-      {
-        menu_2();
-      }
-      else if (pil == 3)
-      {
-        menu_3();
-      }
-      else if (pil == 4)
-      {
-        akar();
-      }
-      else
-      {
-        system("cls");
-        printf("TERIMA KASIH~ \n");
-        return 1;
-      }
-    }
-  }
+    system("color f0");
+    int pilihan;
+    char lanjut;
 
-  return 0;
+    do
+    {
+        menu:
+        pilihan = getPilihan();
+
+        switch(pilihan)
+        {
+            case 1:
+
+    system("cls");
+    int choice;
+while(1) {
+printf("\nStack Menu:\n");
+printf("1. Push element\n");
+printf("2. Pop element\n");
+printf("3. Print stack\n");
+printf("4. Delete stack\n");
+printf("5. Kembali ke menu awal\n");
+printf("Enter your choice: ");
+scanf("%d", &choice);
+
+
+    switch(choice) {
+        case 1:
+        	system("cls");
+            push();
+            break;
+        case 2:
+        		system("cls");
+            pop();
+            break;
+        case 3:
+        		system("cls");
+            print();
+            break;
+        case 4:
+        		system("cls");
+            delete();
+            break;
+        case 5:
+            goto menu;
+        default:
+            printf("Invalid choice!\n");}
 }
+                break;
+
+            case 2:
+                Q();
+                break;
+            case 3:
+                    exit(0);
+
+            default:
+                printf("Pilihan tidak valid. Silakan pilih kembali.\n");
+                system("pause");
+                break;
+        }
+
+   }while(pilihan==3);
+}
+
+void Q()
+{
+    system("cls");
+       int choice, data;
+    while(1) {
+        printf("\nQueue Menu:\n");
+        printf("1. Enqueue Int\n");
+        printf("2. Dequeue Int\n");
+        printf("3. Printf queue\n");
+        printf("4. Delete queue\n");
+        printf("5. Kembali ke menu awal\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        switch(choice) {
+            case 1:
+                system("cls");
+                printf("Data = ");
+                scanf("%d", &data);
+                enqueue(data);
+                system("pause");
+                break;
+            case 2:
+                system("cls");
+                dequeue();
+                system("pause");
+                break;
+            case 3:
+                system("cls");
+                display();
+                system("pause");
+                break;
+            case 4:
+                system("cls");
+            	hapus();
+            	system("pause");
+            	break;
+            case 5:
+                goto*(main());
+            default:
+                printf("Invalid choice!\n");}}
+}
+
+void push() {
+    char data;
+    if(top == MAX_STACK_SIZE-1) {
+        printf("Stack Penuh\n");
+        return;
+    }
+    printf("Data yang ingin di input = ");
+    scanf(" %c", &data);
+    top++;
+    stack[top] = data;
+    system("pause");
+}
+
+
+void pop() {
+if(top == -1) {
+printf("Stack kosong\n");
+return;
+}
+printf("Data yang di ambil =  %c\n", stack[top]);
+top--;
+}
+
+void print() {
+    int i;
+    if (top == -1) {
+        printf("Stack Kosong!\n");
+        return;
+    }
+    printf("Stack elements are:\n");
+    for (i = 0; i <= top; i++) {
+        printf("Data %d: %c\n", top-i, stack[top-i]);
+    }
+}
+
+
+void delete() {
+if(top == -1) {
+printf("Stack is empty!\n");
+return;
+}
+top = -1;
+printf("Data di hapus!\n");
+}
+
+
+void enqueue(int data) {
+    if(rear == MAX_QUEUE_SIZE-1) {
+        printf("Queue Penuh\n");
+        return;
+    }
+    if(front == -1) front = 0;
+    rear++;
+    queue[rear] = data;
+    printf("Data %d masuk\n", data);
+}
+
+
+void dequeue() {
+    if(front == -1 || front > rear) {
+        printf("Queue Kosong\n");
+        return;
+    }
+    int data = queue[front];
+    front++;
+    printf("Data yang keluar = %d.\n", data);
+}
+
+
+
+void display() {
+	int i;
+     if(front == -1 || front > rear)
+	 {
+        printf("Queue Kosong\n");
+        return;
+    }
+
+     printf("Isi Queue:\n");
+    for (i = 0; i <= front; i++) {
+        printf("Data %d: %d\n", front-i, queue[front-i]);}
+}
+
+void hapus() {
+if(front == -1) {
+printf("Stack masih kosong!\n");
+return;
+}
+front = -1;
+printf("Data di hapus\n");
+}
+
+
+
+
+
+
+
+
